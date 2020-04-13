@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react'
 import UserTable from './UserTable'
-import TableContent from './table'
+
 import Demo from '../header'
 import DeleteModal from './deleteModal'
 import { Divider } from 'semantic-ui-react'
@@ -111,26 +111,7 @@ GetAllRecords().then(res=>{
             <div className="column">
               <UserTable data={data} deleteUser={deleteUser} editUser={editUser} />
             </div>
-            </div>
-            {/*  addfunction={addfunction}   */}
-            {/* {add &&
-            <> */}
-              {/* <div className="ui row stackable one column wide">
-                <div className="center aligned column">
-                  <div className="ui container">
-                      <h4 className="ui horizontal divider header">
-                        <i className="user plus icon"></i>
-                             Student Listing
-                        </h4>
-                    
-                  </div>
-                  <TableContent updateUser={updateUser} update={update} currentUser={currentUser} closeAddFunction={closeAddFunction} addUser={addUser} />
-                </div>
-                </div> */}
-              {/* </>  
-              
-            } */}
-          
+            </div>          
         </div>
 
       </Demo>

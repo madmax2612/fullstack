@@ -80,7 +80,7 @@ const Login = function Login() {
   
 
     if (redirect) {
-        return (<Redirect to="/Dashboard" />)
+        return (<Redirect to="/App" />)
     }
 
     //     if(name==='Admin'){
