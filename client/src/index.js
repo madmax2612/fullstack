@@ -15,11 +15,5 @@ ReactDom.render(
 <Router>
   <Route exact path='/' component={Login}/> 
   <Route exact path='/Admin' component={Demo}/> 
- 
-  
-  <Route exact path='/App' component={App}/>
-
-  
-
-   
+  <Route exact path='/App' component={App}/>   
 </Router>, document.getElementById("app"));
