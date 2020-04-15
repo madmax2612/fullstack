@@ -3,7 +3,8 @@ import { Button, Header, Image, Modal } from 'semantic-ui-react'
 import {Redirect} from 'react-router-dom';
 
 import { Controller, useForm } from 'react-hook-form/dist/react-hook-form.ie11'
-import { AddRecords } from '../service/service';
+import { AddRecords, UpdateRecords } from '../service/service';
+import App from './apps';
 
  const AddModal= (props) => {
 
@@ -25,8 +26,8 @@ const [redirect,setRedirect] =useState(false);
 
   const cancelModal = function cancelModal(){
 //    props.redirect && props.redirect();
-setRedirect(true);
-      
+    setRedirect(true);
+     
   }
 
   const onSubmit = function onSubmit(data,e) {
@@ -34,7 +35,13 @@ setRedirect(true);
     console.log(data)
 
     if(props.update){
-        props.updateUser();
+        UpdateRecords(props.update.id,data).then((res)=>{
+            console.log(props.update.id,data);
+            cancelModal();
+          }).catch(err=>{
+            console.log(err.message)
+          })   
+        
     }
 
 else{
@@ -64,7 +71,7 @@ else{
   
 
   if(redirect){
-    return(<Redirect to="/App"/>)
+    return(<App/>)
 }
   
   return(<Modal size="tiny"  dimmer="blurring" open={open} >
@@ -87,7 +94,7 @@ else{
                                           
                 <div className="field">
                     <label>First Name</label>
-                  {console.log(props.update),
+                  {
                   props.update ?  
                      
                     <input type="text" name="first_name" placeholder="Name" ref={register({ required: true })} />
@@ -128,7 +135,7 @@ else{
             <div className="column">               
                 <div className="field">
                     <label>Email</label>
-                  {console.log(props.update),
+                  {
                   props.update ?  
                      
                     <input type="text" name="email" placeholder="Name" ref={register({ required: true })} />
@@ -166,7 +173,7 @@ else{
             <div className="ui two column row wide">
                 <div className="column">    
                     <button className="ui big primary button" >
-                    add
+                    {props.update?'Update':'add'}
                     </button>
                     <button className="ui big primary button" onClick={cancelModal}>
                     Cancel

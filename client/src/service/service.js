@@ -7,8 +7,8 @@ REGISTER:"register",
 LOGIN:"login",
 EMPLOYEE:"http://localhost:5000/employee",
 GETALLRECORDS:"/getAllRecords",
-DELETERECORDS:"/:id/delete",
-UPDATERECORDS:"/:id/update",
+DELETERECORDS:"delete",
+UPDATERECORDS:"update",
 ADDRECORDS:"/create"
 }
 
@@ -53,11 +53,8 @@ export const AddRecords=function AddRecords(body){
 
 export const UpdateRecords=function UpdateRecords(id,body){
 
-    return axios.post(ENDPOINTS.EMPLOYEE+ENDPOINTS.UPDATERECORDS,body,
+    return axios.post(ENDPOINTS.EMPLOYEE+`/${id}/`+ENDPOINTS.UPDATERECORDS,body,
         {
-            params:{
-                id:id
-            },
             timeout:3*60*1000
         }
         )
@@ -65,11 +62,9 @@ export const UpdateRecords=function UpdateRecords(id,body){
 }
 export const DeleteRecords=function DeleteRecords(id,body){
 
-    return axios.post(ENDPOINTS.EMPLOYEE+ENDPOINTS.DELETERECORDS,body,
+    return axios.post(ENDPOINTS.EMPLOYEE+`/${id}/`+ENDPOINTS.DELETERECORDS,body,
         {
-            params:{
-                id:id
-            },
+           
             timeout:3*60*1000
         }
         )

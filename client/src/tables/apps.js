@@ -6,11 +6,14 @@ import DeleteModal from './deleteModal'
 import { Divider } from 'semantic-ui-react'
 import AddModal from './addmodal'
 import { GetAllRecords,DeleteRecords, UpdateRecords } from '../service/service'
+import { MyErrorModal } from '../errormodal'
+import { Redirect } from 'react-router'
 const App = () => {
   const [data,setData]=useState(null);
   const [deleteModal, setDeleteModal] = useState(false);
- 
+  const [error,setError]=useState(false);
  const[update,setUpdate]=useState(false);
+ const[redirect,setRedirect]=useState(false);
   // const [currentUser, setCurrentUser] = useState(initialFormState)
 const[updatedUser,setUpdatedUser]=useState({})
  
@@ -34,41 +37,59 @@ const [deleteUserData,setDeleteUserData]=useState(null);
   }
   
   const editUser = (id,user)=>{
+    // console.log(id,user);
     setAdd(true);
     setUpdate(user);
-   
+    
    
   }
-  
+  // console.log(update.id)
+
   const updateUser = (id,user) => {
-    console.log(id)
-    UpdateRecords(id,user).then(()=>{
-      setAdd(false);
-      console.log(user,id);
-    }).catch(err=>{
-      console.log(err.message)
-    })   
+    console.log(user,id)
+   
   }
 
 
   const deleteUser = (id,data) => {
     setDeleteModal(true);
-    DeleteRecords(id,data).then((res)=>{
-      console.log(res.data);
-    })
-    console.log(data)
+    console.log(id)
+    setDeleteUserData(data)
+    
   }
+
+const deleteUserDatabyId=()=>{
+
+  DeleteRecords(deleteUserData.id,deleteUserData).then((res)=>{
+    console.log(res.data);
+  })
+}  
 const closeModal=()=>{
   setAdd(false);
+}
+
+const cancelServerErrorModal = function cancelServerErrorModal() {
+  setError(false);
+  setRedirect(true);  
+ 
 }
 
 useEffect(() => {
  
 GetAllRecords().then(res=>{
-  console.log(res.data.result.rows)
+  console.log(res.data)
+  if(res.data==="No Data"){
   setData(res.data.result.rows)
-  
+}
+else if(res.data.count>0){
+  setData(res.data.result.rows)
+}else{
+  setError(true);
+}
 
+}).catch(err=>{
+  console.log(err.message)
+  
 })
 
 
@@ -76,13 +97,20 @@ GetAllRecords().then(res=>{
 
 // console.log(data)
 
-
+if(redirect){
+  return(<Redirect to='/'/>)
+}
 
   return (
-    <>{add && <AddModal updateUser={updateUser} update={update} redirect={closeModal}  title="add Employees" positiveActionText={"close"}/>
+    <>
+     {error &&
+                <MyErrorModal title="Data Error" positiveActionText={"close"} content="oops! No data Found " redirect={cancelServerErrorModal} />
+            }
+    {add && <AddModal updateUser={updateUser} update={update} redirect={closeModal}  title="add Employees" positiveActionText={"close"}/>
     }
-      {deleteModal && <DeleteModal deleteUser={deleteUser}  title="Delete User" cencelActionText={"Cancel"} content="are you sure you want to Delete" redirect={deleteUser} positiveActionText={"Ok"} />}
+      {deleteModal && <DeleteModal  title="Delete User" cencelActionText={"Cancel"} content="are you sure you want to Delete" redirect={deleteUserDatabyId} positiveActionText={"Ok"} />}
       <Demo>
+        <div className="ui hidden divider"/>
         <div className="ui container">
           <div className="ui ">
           

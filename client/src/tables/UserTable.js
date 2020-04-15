@@ -14,6 +14,7 @@ return(
       <Table.HeaderCell>Sno.</Table.HeaderCell>
          <Table.HeaderCell>Name</Table.HeaderCell>
          <Table.HeaderCell>userName</Table.HeaderCell>
+         <Table.HeaderCell>Email Id</Table.HeaderCell>
          <Table.HeaderCell>Actions</Table.HeaderCell>
        </Table.Row>
     </Table.Header>
@@ -22,11 +23,11 @@ return(
         {
 
         props.data &&
-        props.data.map((user,key) => {
+        props.data.map((user,index) => {
           
           return(
-            <>
-            <Table.Row key={key}>
+            <React.Fragment >
+            <Table.Row key={index}>
           <Table.Cell >{user.id}</Table.Cell>
           <Table.Cell >{user.first_name}</Table.Cell>
             <Table.Cell >{user.last_name}</Table.Cell>
@@ -36,7 +37,7 @@ return(
               <button className="ui button muted-button" onClick={()=>props.deleteUser(user.id,user)}>Delete</button>
             </Table.Cell>
             </Table.Row>
-          </>
+          </React.Fragment>
           )})}
           
           

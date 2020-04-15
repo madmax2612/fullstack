@@ -62,29 +62,7 @@ return(<>
                     
                     <h3 className="ui header myMenu" style={{color:'white'}}>All Data</h3>
                 </Menu.Item>
-            </Link>
-
-        
-            {/* <Link to="/App">
-                <Menu.Item >
-                <h3 className="ui header myMenu"style={{color:'white'}} >Student Listing</h3>
-                </Menu.Item>
-            </Link>
-            
-            
-            <Link to="/App">
-                <Menu.Item >
-                <h3 className="ui header myMenu"style={{color:'white'}} >Student Report</h3>
-                </Menu.Item>
-            </Link>
-                
-            <Link to="/teachers">
-                <Menu.Item >
-                <h3 className="ui header myMenu"style={{color:'white'}} >Teacher</h3>
-                </Menu.Item>
-            </Link> */}
-            
-       
+            </Link>       
     </Sidebar>
     <Sidebar.Pusher dimmed={visible} >
         <div className="parent" style={{height:'100vh'}}>

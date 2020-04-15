@@ -16,14 +16,28 @@ users.get('/getAllRecords',(req,res)=>{
 
 User.findAndCountAll().then((data) => {
     // let limit = 50;   // number of records per page
+   try{ 
+    if (data){
     let limit=10
     let page = req.params.page;      // page number
     let pages = Math.ceil(data.count / limit);
     // console.log(pages)
 		offset = limit * (page - 1);
     // console.log(data)
+    console.log(data.count)
+    if(!data.count==0){
       res.send({"perpage":pages ,'result': data, 'count': data.count,"offset":offset})
-  })
+    }
+    else{
+        res.send({data:"No Data"})
+    }
+    }
+   
+   }
+   catch(err){
+       res.status(404).json({err:"No data"})
+   }
+})
   .catch(function (error) {
 		res.status(500).send('Internal Server Error'+error.message);
 	});
@@ -33,6 +47,8 @@ User.findAndCountAll().then((data) => {
 })
 
 users.post('/create',(req,res)=>{
+
+    
     const today = new Date()
     const userData ={
             first_name: req.body.first_name,
@@ -52,11 +68,14 @@ res.status(400).json({error:err.message})
 })
 
 users.post('/:id/delete',(req,res)=>{
-    User.truncate(req.param.id,{$set:req.body}
+    const id = req.params.id;
+    User.destroy(
+       { where: {id: id} }
     ).then(user =>{
        res.json({status:"Employee Deleted"}) 
+    }).catch((err)=>{
+        console.log(err.message)
     })
-
 
 })
 users.post('/:id/update',(req,res)=>{

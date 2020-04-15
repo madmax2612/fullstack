@@ -53,9 +53,9 @@ const Login = function Login() {
        
 
 
-        
-            try {
-
+        let isCancelled = false;
+         
+                
                 LoginApi(data).then((res) => {
 
                     console.log(res.data.token);
@@ -71,11 +71,8 @@ const Login = function Login() {
                     setError(true)
                     console.log(err.message)
                 })
-            }
+            
 
-            catch (e) {
-                console.log(e.message)
-            }
     }
   
 
@@ -114,7 +111,7 @@ const Login = function Login() {
 
                                 <div className="field">
                                     <label>Email</label>
-                                    <input type="text" name="email" placeholder="Username" ref={register({ required: true })} />
+                                    <input type="email" name="email" placeholder="Username" ref={register({required: true })} />
                                 </div>
                                 {
                                     errors && errors.email ? <div className="ui one  grid column row errorDiv">
@@ -190,7 +187,7 @@ const Login = function Login() {
                                 <div className="column">
                                 <div className="field">
                              <label>Email Address</label>
-                             <input type="text" name="email" placeholder="Username" ref={register({ required: true })} />
+                             <input type="text" name="email" placeholder="Username" ref={register({pattern:/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/, required: true })} />
                          </div>
                          {
                             errors &&  errors.email ? <div className="ui one  grid column row errorDiv">

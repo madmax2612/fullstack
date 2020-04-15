@@ -1,14 +1,15 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { Button, Header, Image, Modal } from 'semantic-ui-react'
 import {Redirect} from 'react-router-dom';
+import App from './apps';
 
  const DeleteModal= (props) => {
   const [open,setOpen]=React.useState(true);
-  
+  const[redirectTo,setRedirectTo]=useState(false);
   const closeModal = function closeModal(){
     console.log("close modal");
-    props.redirect && props.redirect();
-    setOpen(false);
+     props.redirect();
+    setRedirectTo(true);
   }
 
   const cancelModal = function cancelModal(){
@@ -17,7 +18,9 @@ import {Redirect} from 'react-router-dom';
       
   }
 
-  
+  if(redirectTo){
+    return(<App/>)
+  }
 
 
   
