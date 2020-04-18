@@ -3,6 +3,7 @@ const db = require('../db/db.js')
 
 module.exports = db.sequelize.define(
     'emps',
+    // {define:},
     {
       id: {
         type: Sequelize.INTEGER,
@@ -30,6 +31,9 @@ module.exports = db.sequelize.define(
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW
       }
+    },
+    {
+      // freezeTableName:true
     },
     {
       timestamps: false

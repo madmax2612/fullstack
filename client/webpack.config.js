@@ -2,7 +2,7 @@ const path = require("path");
 const WEBPACK = require('webpack');
 
 module.exports = {
-
+    
     devServer: {
         contentBase: path.resolve(__dirname, "./src"),
         historyApiFallback: true
